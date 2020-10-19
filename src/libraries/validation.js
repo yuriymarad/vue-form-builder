@@ -109,7 +109,7 @@ export default class Validation {
                 return sameAsRule(fieldValue, validationRule.additionalValue, this.valueContainer)
 
             case "customClosure":
-                return customClosureRule(fieldValue, validationRule.additionalValue, this.valueContainer, this.customClosures)
+                return customClosureRule(fieldValue, validationRule.additionalValue, this.valueContainer, this.validationClosures)
 
             default:
                 throw new TypeError(`This validation type ${validationRule.ruleType} is not supported.`);
