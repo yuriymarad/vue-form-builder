@@ -8,6 +8,7 @@
                    :key="section.uniqueId"
                    :value-container="valueContainer"
                    :validation-errors="validationErrors"
+                   :custom-rules="customRules"
         />
 
     </div>
@@ -26,6 +27,7 @@
             controls: Object,
             valueContainer: Object,
             validationErrors: Object,
+            customRules: Object,
         },
 
         computed: {

@@ -279,6 +279,9 @@ const CONTROL_DEFAULT_DATA = {
 
     'defaultValue': '',
 
+    'disabled': false,
+    'show': true,
+
     /**
      * Validation that applied to the control
      * @var {ValidationRule[]} validations

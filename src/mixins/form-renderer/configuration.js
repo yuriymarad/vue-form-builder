@@ -10,6 +10,10 @@ const CONFIGURATION = {
         formConfiguration: {
             type: Object,
             required: true,
+        },
+        customRulesConfiguration: {
+            type: Object,
+            required: false
         }
     },
 
@@ -27,11 +31,22 @@ const CONFIGURATION = {
                 this.mapping(val)
                 this.createValueContainer(val)
             }
+        },
+        customRulesConfiguration: {
+            deep: true,
+            handler(val) {
+                if (deepEqual(val, this.customRules)) {
+                    return
+                }
+
+                this.mappingCustomRules(val)
+            }
         }
     },
 
     created() {
         this.mapping(this.formConfiguration)
+        this.mappingCustomRules(this.customRulesConfiguration)
     },
 
     computed: {

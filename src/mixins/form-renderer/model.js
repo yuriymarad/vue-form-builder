@@ -35,6 +35,7 @@ const MODEL = {
                 if (!val) return;
 
                 this.$emit(EMIT_EVENT, this.valueContainer)
+                this.$formEvent.$emit('valueChanged', this.valueContainer)
             },
         }
     },

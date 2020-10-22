@@ -12,6 +12,7 @@
                          :parent-id="section.uniqueId"
                          :value-container="valueContainer"
                          :validation-errors="validationErrors"
+                         :custom-rules="customRules"
             />
         </div>
     </div>
