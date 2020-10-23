@@ -4,13 +4,15 @@
 
             <label v-for="listItem in control.items"
                    :key="listItem.value"
-                   :class="positionClasses">
+                   :class="positionClasses"
+                   v-show="control.show">
                 <!--- For structural, line/next is same --->
                 <input :type="control.type"
                        :class="control.additionalFieldClass"
                        :name="inputName"
                        :value="listItem.value"
                        v-model="valueContainer[controlName]"
+                       :disabled="control.disabled"
                 >
 
                 {{listItem.text}}
@@ -26,7 +28,8 @@
 
                 <div :class="[styles.COLUMNS.COL6, positionClasses]"
                      v-for="listItem in control.items"
-                     :key="listItem.value">
+                     :key="listItem.value"
+                     v-show="control.show">
 
                     <label>
                         <!--- Input things are same, hmm - TODO: DRY ?? --->
@@ -35,6 +38,7 @@
                                :name="inputName"
                                :value="listItem.value"
                                v-model="valueContainer[controlName]"
+                               :disabled="control.disabled"
                         >
 
                         {{listItem.text}}

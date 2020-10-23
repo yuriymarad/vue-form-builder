@@ -35,21 +35,21 @@ const STYLES = {
      * List Group Classes - Used in AddSectionVueControl
      */
     LIST_GROUP: {
-        CONTAINER: "list-group md-list", // div.list-group
-        SINGLE_ITEM: "list-group-item list-group-item-action md-list-item md-list-item-action", //a[href=...].list-group-item.list-group-item-action
+        CONTAINER: "list-group",
+        SINGLE_ITEM: "list-group-item list-group-item-action",
     },
 
     /**
      * Button Classes
      */
     BUTTON: {
-        PRIMARY: "btn btn-primary md-button md-raised md-primary md-theme-default",
-        SECONDARY: "btn btn-secondary md-button md-raised md-secondary md-theme-default",
-        DEFAULT: "btn btn-default md-button md-raised md-default md-theme-default",
-        SUCCESS: "btn btn-success md-button md-raised md-success md-theme-default",
-        DANGER: "btn btn-danger md-button md-raised md-accent md-theme-default",
-        WARNING: "btn btn-warning md-button md-raised md-warning md-theme-default",
-        INFO: "btn btn-info md-button md-raised md-info md-theme-default",
+        PRIMARY: "btn btn-default btn-primary inline-flex items-center btn-svg",
+        SECONDARY: "btn btn-default bg-gray-500 text-white inline-flex items-center btn-svg",
+        DEFAULT: "btn btn-default btn-default inline-flex items-center btn-svg",
+        SUCCESS: "btn btn-default btn-success inline-flex items-center btn-svg",
+        DANGER: "btn btn-default btn-danger inline-flex items-center btn-svg",
+        WARNING: "btn btn-default btn-warning inline-flex items-center btn-svg",
+        INFO: "btn btn-default bg-gray-500 text-white inline-flex items-center btn-svg",
     },
 
     /**
@@ -58,9 +58,10 @@ const STYLES = {
     FORM: {
         FORM_GROUP: "form-group",
         INPUT_GROUP: "input-group",
-        FORM_CONTROL: "form-control md-field",
-        ERROR_OUTLINE: "is-invalid md-error",
-        ERROR_MESSAGE: "invalid-feedback"
+        FORM_CONTROL: "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 " +
+            "text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+        ERROR_OUTLINE: "is-invalid",
+        ERROR_MESSAGE: "invalid-feedback text-red-500"
     },
 
     /**

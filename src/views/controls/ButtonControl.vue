@@ -1,10 +1,12 @@
 <template>
     <button :id="control.uniqueId"
             :class="buttonClasses"
-            :name="control.name"
+            :name="control.name || control.uniqueId"
             v-text="control.label"
             :type="control.buttonType || 'button'"
             @click="clickedHandle"
+            :disabled="control.disabled"
+            v-show="control.show"
     ></button>
 </template>
 

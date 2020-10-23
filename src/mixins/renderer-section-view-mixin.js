@@ -9,6 +9,7 @@ import isIn from "@/libraries/customRules/isIn";
 import isNotIn from "@/libraries/customRules/isNotIn";
 import startsWith from "@/libraries/customRules/startWith";
 import endsWith from "@/libraries/customRules/endsWith";
+import performArithmeticOperations from "@/libraries/customRules/performArithmeticOperations";
 
 const RENDERER_SECTION_VIEW_MIXIN = {
     components: {
@@ -32,9 +33,6 @@ const RENDERER_SECTION_VIEW_MIXIN = {
 
     methods: {
         runRules(formData) {
-            // if (!this.customRules.length) {
-            //     return;
-            // }
             for (let key in this.customRules) {
                 let currentRule = this.customRules[key];
                 if (!currentRule.enabled) {
@@ -47,42 +45,42 @@ const RENDERER_SECTION_VIEW_MIXIN = {
                     switch (selectedCondition.conditionSelected) {
                         case 'isBlank':
                             conditionPassed.push(
-                                isBlank(this.controls[selectedCondition.fieldSelected].name, this.valueContainer)
+                                isBlank(selectedCondition.fieldSelected, this.valueContainer)
                             );
                             break;
                         case 'isPresent':
                             conditionPassed.push(
-                                isPresent(this.controls[selectedCondition.fieldSelected].name, this.valueContainer)
+                                isPresent(selectedCondition.fieldSelected, this.valueContainer)
                             );
                             break;
                         case 'equalTo':
                             conditionPassed.push(
-                                isEqual(this.controls[selectedCondition.fieldSelected].name, this.valueContainer, selectedCondition.conditionInput)
+                                isEqual(selectedCondition.fieldSelected, this.valueContainer, selectedCondition.conditionInput)
                             );
                             break;
                         case 'notEqualTo':
                             conditionPassed.push(
-                                isNotEqual(this.controls[selectedCondition.fieldSelected].name, this.valueContainer, selectedCondition.conditionInput)
+                                isNotEqual(selectedCondition.fieldSelected, this.valueContainer, selectedCondition.conditionInput)
                             );
                             break;
                         case 'isIn':
                             conditionPassed.push(
-                                isIn(this.controls[selectedCondition.fieldSelected].name, this.valueContainer, selectedCondition.conditionInput)
+                                isIn(selectedCondition.fieldSelected, this.valueContainer, selectedCondition.conditionInput)
                             );
                             break;
                         case 'isNotIn':
                             conditionPassed.push(
-                                isNotIn(this.controls[selectedCondition.fieldSelected].name, this.valueContainer, selectedCondition.conditionInput)
+                                isNotIn(selectedCondition.fieldSelected, this.valueContainer, selectedCondition.conditionInput)
                             );
                             break;
                         case 'startsWith':
                             conditionPassed.push(
-                                startsWith(this.controls[selectedCondition.fieldSelected].name, this.valueContainer, selectedCondition.conditionInput)
+                                startsWith(selectedCondition.fieldSelected, this.valueContainer, selectedCondition.conditionInput)
                             );
                             break;
                         case 'endsWith':
                             conditionPassed.push(
-                                endsWith(this.controls[selectedCondition.fieldSelected].name, this.valueContainer, selectedCondition.conditionInput)
+                                endsWith(selectedCondition.fieldSelected, this.valueContainer, selectedCondition.conditionInput)
                             );
                             break;
                         default:
@@ -93,6 +91,8 @@ const RENDERER_SECTION_VIEW_MIXIN = {
                 if (checkIfPassed(conditionPassed, currentRule.typeSelected)) {
                     for (let actionnKey in currentRule.actions) {
                         let selectedAction = currentRule.actions[actionnKey];
+                        let controlIdentifier = this.controls[selectedAction.fieldSelected].uniqueId ?
+                            this.controls[selectedAction.fieldSelected].uniqueId : this.controls[selectedAction.fieldSelected].name;
                         switch (selectedAction.actionSelected) {
                             case 'toShow':
                             case 'toHide':
@@ -103,6 +103,23 @@ const RENDERER_SECTION_VIEW_MIXIN = {
                             case 'toDisable':
                                 this.controls[selectedAction.fieldSelected].disabled = selectedAction.actionSelected !== 'toEnable';
                                 break;
+                            case 'copy':
+                                let copyToIdentifier = this.controls[selectedAction.copyTo].uniqueId ?
+                                    this.controls[selectedAction.copyTo].uniqueId : this.controls[selectedAction.copyTo].name;
+                                this.valueContainer[copyToIdentifier] =
+                                    this.valueContainer[controlIdentifier];
+                                break;
+                            case 'performArithmeticOperations':
+                                this.valueContainer[controlIdentifier] =
+                                    performArithmeticOperations(selectedAction.math, selectedAction.mathTo, this.valueContainer);
+                                break;
+                            case 'formatNumber':
+                                let separator = new Intl.NumberFormat(selectedAction.formatNumberAs).format(1111).replace(/1/g, '');
+                                let num = new Intl.NumberFormat(selectedAction.formatNumberAs).format(
+                                    this.valueContainer[controlIdentifier].replace(new RegExp('\\' + separator, 'g'), '')
+                                );
+                                this.valueContainer[controlIdentifier] = num;
+                                break;
                             default:
                                 break;
                         }
@@ -110,6 +127,8 @@ const RENDERER_SECTION_VIEW_MIXIN = {
                 } else {
                     for (let actionnKey in currentRule.actions) {
                         let selectedAction = currentRule.actions[actionnKey];
+                        let controlIdentifier = this.controls[selectedAction.fieldSelected].uniqueId ?
+                            this.controls[selectedAction.fieldSelected].uniqueId : this.controls[selectedAction.fieldSelected].name;
                         switch (selectedAction.actionSelected) {
                             case 'toShow':
                             case 'toHide':
@@ -121,7 +140,15 @@ const RENDERER_SECTION_VIEW_MIXIN = {
                                 this.controls[selectedAction.fieldSelected].disabled = selectedAction.actionSelected === 'toEnable';
                                 break;
                             case 'copy':
-                                // this.controls[selectedAction.fieldSelected].disabled = selectedAction.actionSelected === 'toEnable';
+                                let copyToIdentifier = this.controls[selectedAction.copyTo].uniqueId ?
+                                    this.controls[selectedAction.copyTo].uniqueId : this.controls[selectedAction.copyTo].name;
+                                this.valueContainer[copyToIdentifier] = '';
+                                break;
+                            case 'performArithmeticOperations':
+                                this.valueContainer[controlIdentifier] = '';
+                                break;
+                            case 'formatNumber':
+                                this.valueContainer[controlIdentifier] = '';
                                 break;
                             default:
                                 break;

@@ -214,13 +214,13 @@ const CONTROLS = {
 
         configData: {
             buttonClass: STYLES.BUTTON.PRIMARY,
-            buttonType: "button", // submit/reset/button/...
+            buttonType: "submit", // submit/reset/button/...
 
-            emitEventCode: "", // like: "BtnClicked/clicked/change"
-            emitEventData: "", // special data to emit to let you know which button is clicked
+            emitEventCode: "submitHandler", // like: "BtnClicked/clicked/change"
+            emitEventData: "submit", // special data to emit to let you know which button is clicked
 
             // if this is true => validation will be run before the real invoke method
-            isRunValidation: false,
+            isRunValidation: true,
 
             // Override here in order to not show the Label
             isShowLabel: false,

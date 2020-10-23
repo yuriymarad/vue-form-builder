@@ -1,5 +1,6 @@
 <template>
-    <div :class="control.additionalFieldClass" v-text="control.text">
+    <div :class="control.additionalFieldClass" v-text="control.text"
+         v-show="control.show">
     </div>
 </template>
 

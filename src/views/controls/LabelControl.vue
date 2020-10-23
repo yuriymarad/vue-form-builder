@@ -4,6 +4,7 @@
             :for="control.forAttribute"
             :class="control.additionalLabelClass"
             v-html="control.label"
+            v-show="control.show"
     ></label>
 </template>
 

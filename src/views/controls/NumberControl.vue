@@ -1,9 +1,11 @@
 <template>
     <input :id="control.uniqueId"
            type="number"
+           :disabled="control.disabled"
+           v-show="control.show"
            :class="controlFieldClass"
            :value="number"
-           :name="control.name"
+           :name="control.name || control.uniqueId"
            :placeholder="control.placeholderText"
            @input="convertToNumber($event.target.value)"
     />
@@ -23,10 +25,10 @@
         mixins: [CONTROL_FIELD_EXTEND_MIXIN],
 
         data: () => ({
-            number: 0,
+            number: null,
             stopDefaultValueAssign: true,
 
-            previewMode: "0"
+            // previewMode: "0"
         }),
 
         methods: {
@@ -35,14 +37,14 @@
              * @param value
              */
             convertToNumber(value) {
-                let convertedVal = this.isRealNumber ? parseFloat(value) : parseInt(value, 10)
+                // let convertedVal = this.isRealNumber ? parseFloat(value) : parseInt(value, 10)
 
                 // emit now
-                this.updateValue(convertedVal)
+                this.updateValue(value)
 
                 // re-assign val
                 //this.updatedPreview()
-                this.number = convertedVal
+                this.number = value;
             },
 
             /**

@@ -6,9 +6,5 @@
  * @return {boolean}
  */
 export default function sameAsRule(fieldValue, fieldToCheck, valuesContainer) {
-    if (!valuesContainer[fieldToCheck]) {
-        return false
-    }
-
-    return fieldValue === valuesContainer[fieldToCheck]
+    return fieldValue == fieldToCheck
 }
