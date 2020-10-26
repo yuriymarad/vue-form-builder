@@ -1,37 +1,39 @@
 <template>
     <div>
-        <template v-if="control.singleMode">
-            <input type="text"
-                   :id="control.uniqueId"
-                   :name="control.name || control.uniqueId"
-                   :placeholder="control.placeholderText"
-                   :class="styles.FORM.FORM_CONTROL"
-                   autocomplete="off"
-            />
-        </template>
-        <template v-else>
-            <input type="text"
-                   :id="control.uniqueId"
-                   :placeholder="control.placeholderText"
-                   :class="styles.FORM.FORM_CONTROL"
-                   autocomplete="off"
-            />
-
-            <!--
-            Why I need to implement this?
-            Because in <form> mode, when submitting. The form need to send these together, therefore in the backend
-            You will have some sort like: abc[startDate], abc[endDate] (Object/AssocArray)
-            Its kinda useless for Ajax Mode :D
-            -->
-            <input type="hidden"
-                   :name="startDateFieldName"
-                   v-model="value.startDate"
-            >
-            <input type="hidden"
-                   :name="endDateFieldName"
-                   v-model="value.endDate"
-            >
-        </template>
+        <div v-show="control.disabled">
+            <input disabled :class="styles.FORM.FORM_CONTROL">
+        </div>
+        <div v-show="!control.disabled">
+            <template v-if="control.singleMode">
+                <input type="text"
+                       :disabled="control.disabled"
+                       v-show="control.show"
+                       :id="control.uniqueId"
+                       :name="control.name || control.uniqueId"
+                       :placeholder="control.placeholderText"
+                       :class="styles.FORM.FORM_CONTROL"
+                       autocomplete="off"
+                />
+            </template>
+            <template v-else>
+                <input type="text"
+                       :disabled="control.disabled"
+                       v-show="control.show"
+                       :id="control.uniqueId"
+                       :placeholder="control.placeholderText"
+                       :class="styles.FORM.FORM_CONTROL"
+                       autocomplete="off"
+                />
+                <input type="hidden"
+                       :name="startDateFieldName"
+                       v-model="value.startDate"
+                >
+                <input type="hidden"
+                       :name="endDateFieldName"
+                       v-model="value.endDate"
+                >
+            </template>
+        </div>
     </div>
 </template>
 

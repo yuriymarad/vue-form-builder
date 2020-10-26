@@ -1,6 +1,8 @@
 <template>
     <input :id="control.uniqueId"
            type="text"
+           :disabled="control.disabled"
+           v-show="control.show"
            :class="controlFieldClass"
            :value="value"
            :name="control.name || control.uniqueId"

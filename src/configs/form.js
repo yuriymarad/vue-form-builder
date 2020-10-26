@@ -9,7 +9,7 @@ const FORM_DEFAULT_DATA = {
     isShowHeadline: false,
 
     // <form></form> tag ??
-    renderFormTag: false,
+    renderFormTag: true,
     formActionURL: "",
     formMethod: "POST",
 };

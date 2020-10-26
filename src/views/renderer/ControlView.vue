@@ -49,6 +49,10 @@
             validationErrors: {
                 type: Object,
                 default: () => ({}) // empty object
+            },
+            customRules: {
+                type: Object,
+                default: () => ({})
             }
         },
 

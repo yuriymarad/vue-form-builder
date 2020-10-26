@@ -22,6 +22,7 @@
                               :key="sectionData.uniqueId"
                               :value-container="valueContainer"
                               :validation-errors="validationErrors"
+                              :custom-rules="customRules"
             />
         </form>
         <template v-else>
@@ -40,6 +41,7 @@
                               :key="sectionData.uniqueId"
                               :value-container="valueContainer"
                               :validation-errors="validationErrors"
+                              :custom-rules="customRules"
             />
 
         </template>
@@ -55,7 +57,8 @@
         components: {SectionContainer},
         mixins: FormRendererBusiness,
         data: () => ({
-            formData: null
+            formData: null,
+            customRules: null,
         }),
     }
 </script>

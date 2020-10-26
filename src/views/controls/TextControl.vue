@@ -2,10 +2,12 @@
     <textarea
             :id="control.uniqueId"
             type="text"
+            :disabled="control.disabled"
+            v-show="control.show"
             :class="controlFieldClass"
             :value="value"
             :rows="control.rows"
-            :name="control.name"
+            :name="control.name || control.uniqueId"
             :placeholder="control.placeholderText"
             @input="updateValue($event.target.value)"
     ></textarea>

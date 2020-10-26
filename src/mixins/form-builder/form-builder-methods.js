@@ -24,6 +24,10 @@ const FORM_BUILDER_METHODS = {
             this.doSortSection()
         },
 
+        mappingCustomRules(value) {
+            this.customRules = Object.assign({}, this.customRules, value)
+        },
+
         /**
          * Create Default Form-Config-Data on a new section...
          */
