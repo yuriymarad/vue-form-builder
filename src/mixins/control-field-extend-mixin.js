@@ -50,7 +50,6 @@ const CONTROL_FIELD_EXTEND_MIXIN = {
          * @param val
          */
         updateValue(val) {
-            console.log(val);
             this.$emit(EMIT_EVENT, val)
         },
 
